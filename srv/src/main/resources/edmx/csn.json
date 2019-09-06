@@ -1,0 +1,300 @@
+{
+  "namespace": "com.relation",
+  "definitions": {
+    "RelationService": {
+      "kind": "service"
+    },
+    "RelationService.CommentEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "RELATIONSERVICE_COMMENTENTITY",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.relation.CommentEntity"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "commentId": {
+          "@cds.persistence.name": "COMMENTID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "message": {
+          "@cds.persistence.name": "MESSAGE",
+          "type": "cds.String"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "RelationService.CommunicationEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "RELATIONSERVICE_COMMUNICATIONENTITY",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.relation.CommunicationEntity"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "communicationId": {
+          "@cds.persistence.name": "COMMUNICATIONID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "socialMedia": {
+          "@cds.persistence.name": "SOCIALMEDIA",
+          "type": "cds.String"
+        },
+        "webAddress": {
+          "@cds.persistence.name": "WEBADDRESS",
+          "type": "cds.String"
+        },
+        "linkToComment": {
+          "@cds.persistence.name": "LINKTOCOMMENT",
+          "type": "cds.Association",
+          "target": "RelationService.CommentEntity",
+          "keys": [
+            {
+              "ref": [
+                "commentId"
+              ],
+              "$generatedFieldName": "linkToComment_commentId"
+            }
+          ]
+        },
+        "linkToComment_commentId": {
+          "@cds.persistence.name": "LINKTOCOMMENT_COMMENTID",
+          "@odata.foreignKey4": "linkToComment",
+          "type": "cds.Integer"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "RelationService.CompanyEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "RELATIONSERVICE_COMPANYENTITY",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.relation.CompanyEntity"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "companyId": {
+          "@cds.persistence.name": "COMPANYID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "companyName": {
+          "@cds.persistence.name": "COMPANYNAME",
+          "type": "cds.String"
+        },
+        "linkToContact": {
+          "@cds.persistence.name": "LINKTOCONTACT",
+          "type": "cds.Association",
+          "target": "RelationService.ContactEntity",
+          "keys": [
+            {
+              "ref": [
+                "contactId"
+              ],
+              "$generatedFieldName": "linkToContact_contactId"
+            }
+          ]
+        },
+        "linkToContact_contactId": {
+          "@cds.persistence.name": "LINKTOCONTACT_CONTACTID",
+          "@odata.foreignKey4": "linkToContact",
+          "type": "cds.Integer"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "RelationService.ContactEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "RELATIONSERVICE_CONTACTENTITY",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "com.relation.ContactEntity"
+            ]
+          }
+        }
+      },
+      "elements": {
+        "contactId": {
+          "@cds.persistence.name": "CONTACTID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "contactName": {
+          "@cds.persistence.name": "CONTACTNAME",
+          "type": "cds.String"
+        },
+        "contactPhone": {
+          "@cds.persistence.name": "CONTACTPHONE",
+          "type": "cds.Integer"
+        },
+        "linkToCommunication": {
+          "@cds.persistence.name": "LINKTOCOMMUNICATION",
+          "type": "cds.Association",
+          "target": "RelationService.CommunicationEntity",
+          "keys": [
+            {
+              "ref": [
+                "communicationId"
+              ],
+              "$generatedFieldName": "linkToCommunication_communicationId"
+            }
+          ]
+        },
+        "linkToCommunication_communicationId": {
+          "@cds.persistence.name": "LINKTOCOMMUNICATION_COMMUNICATIONID",
+          "@odata.foreignKey4": "linkToCommunication",
+          "type": "cds.Integer"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "com.relation.CommentEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_RELATION_COMMENTENTITY",
+      "elements": {
+        "commentId": {
+          "@cds.persistence.name": "COMMENTID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "message": {
+          "@cds.persistence.name": "MESSAGE",
+          "type": "cds.String"
+        }
+      }
+    },
+    "com.relation.CommunicationEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_RELATION_COMMUNICATIONENTITY",
+      "elements": {
+        "communicationId": {
+          "@cds.persistence.name": "COMMUNICATIONID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "socialMedia": {
+          "@cds.persistence.name": "SOCIALMEDIA",
+          "type": "cds.String"
+        },
+        "webAddress": {
+          "@cds.persistence.name": "WEBADDRESS",
+          "type": "cds.String"
+        },
+        "linkToComment": {
+          "@cds.persistence.name": "LINKTOCOMMENT",
+          "type": "cds.Association",
+          "target": "com.relation.CommentEntity",
+          "keys": [
+            {
+              "ref": [
+                "commentId"
+              ],
+              "$generatedFieldName": "linkToComment_commentId"
+            }
+          ]
+        },
+        "linkToComment_commentId": {
+          "@cds.persistence.name": "LINKTOCOMMENT_COMMENTID",
+          "@odata.foreignKey4": "linkToComment",
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "com.relation.CompanyEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_RELATION_COMPANYENTITY",
+      "elements": {
+        "companyId": {
+          "@cds.persistence.name": "COMPANYID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "companyName": {
+          "@cds.persistence.name": "COMPANYNAME",
+          "type": "cds.String"
+        },
+        "linkToContact": {
+          "@cds.persistence.name": "LINKTOCONTACT",
+          "type": "cds.Association",
+          "target": "com.relation.ContactEntity",
+          "keys": [
+            {
+              "ref": [
+                "contactId"
+              ],
+              "$generatedFieldName": "linkToContact_contactId"
+            }
+          ]
+        },
+        "linkToContact_contactId": {
+          "@cds.persistence.name": "LINKTOCONTACT_CONTACTID",
+          "@odata.foreignKey4": "linkToContact",
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "com.relation.ContactEntity": {
+      "kind": "entity",
+      "@cds.persistence.name": "COM_RELATION_CONTACTENTITY",
+      "elements": {
+        "contactId": {
+          "@cds.persistence.name": "CONTACTID",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "contactName": {
+          "@cds.persistence.name": "CONTACTNAME",
+          "type": "cds.String"
+        },
+        "contactPhone": {
+          "@cds.persistence.name": "CONTACTPHONE",
+          "type": "cds.Integer"
+        },
+        "linkToCommunication": {
+          "@cds.persistence.name": "LINKTOCOMMUNICATION",
+          "type": "cds.Association",
+          "target": "com.relation.CommunicationEntity",
+          "keys": [
+            {
+              "ref": [
+                "communicationId"
+              ],
+              "$generatedFieldName": "linkToCommunication_communicationId"
+            }
+          ]
+        },
+        "linkToCommunication_communicationId": {
+          "@cds.persistence.name": "LINKTOCOMMUNICATION_COMMUNICATIONID",
+          "@odata.foreignKey4": "linkToCommunication",
+          "type": "cds.Integer"
+        }
+      }
+    }
+  },
+  "version": {
+    "csn": "1.0"
+  },
+  "meta": {
+    "creator": "CDS Compiler v1.17.2"
+  },
+  "$version": "1.0",
+  "@sql_mapping": "plain"
+}

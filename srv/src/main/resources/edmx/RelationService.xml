@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema Namespace="RelationService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="CommentEntity" EntityType="RelationService.CommentEntity"/>
+        <EntitySet Name="CommunicationEntity" EntityType="RelationService.CommunicationEntity"/>
+        <EntitySet Name="CompanyEntity" EntityType="RelationService.CompanyEntity"/>
+        <EntitySet Name="ContactEntity" EntityType="RelationService.ContactEntity"/>
+        <AssociationSet Name="CommunicationEntity_linkToComment" Association="RelationService.CommunicationEntity_linkToComment">
+          <End Role="CommunicationEntity" EntitySet="CommunicationEntity"/>
+          <End Role="CommentEntity" EntitySet="CommentEntity"/>
+        </AssociationSet>
+        <AssociationSet Name="CompanyEntity_linkToContact" Association="RelationService.CompanyEntity_linkToContact">
+          <End Role="CompanyEntity" EntitySet="CompanyEntity"/>
+          <End Role="ContactEntity" EntitySet="ContactEntity"/>
+        </AssociationSet>
+        <AssociationSet Name="ContactEntity_linkToCommunication" Association="RelationService.ContactEntity_linkToCommunication">
+          <End Role="ContactEntity" EntitySet="ContactEntity"/>
+          <End Role="CommunicationEntity" EntitySet="CommunicationEntity"/>
+        </AssociationSet>
+      </EntityContainer>
+      <EntityType Name="CommentEntity">
+        <Key>
+          <PropertyRef Name="commentId"/>
+        </Key>
+        <Property Name="commentId" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="message" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="CommunicationEntity">
+        <Key>
+          <PropertyRef Name="communicationId"/>
+        </Key>
+        <Property Name="communicationId" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="socialMedia" Type="Edm.String"/>
+        <Property Name="webAddress" Type="Edm.String"/>
+        <NavigationProperty Name="linkToComment" Relationship="RelationService.CommunicationEntity_linkToComment" FromRole="CommunicationEntity" ToRole="CommentEntity"/>
+        <Property Name="linkToComment_commentId" Type="Edm.Int32"/>
+      </EntityType>
+      <EntityType Name="CompanyEntity">
+        <Key>
+          <PropertyRef Name="companyId"/>
+        </Key>
+        <Property Name="companyId" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="companyName" Type="Edm.String"/>
+        <NavigationProperty Name="linkToContact" Relationship="RelationService.CompanyEntity_linkToContact" FromRole="CompanyEntity" ToRole="ContactEntity"/>
+        <Property Name="linkToContact_contactId" Type="Edm.Int32"/>
+      </EntityType>
+      <EntityType Name="ContactEntity">
+        <Key>
+          <PropertyRef Name="contactId"/>
+        </Key>
+        <Property Name="contactId" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="contactName" Type="Edm.String"/>
+        <Property Name="contactPhone" Type="Edm.Int32"/>
+        <NavigationProperty Name="linkToCommunication" Relationship="RelationService.ContactEntity_linkToCommunication" FromRole="ContactEntity" ToRole="CommunicationEntity"/>
+        <Property Name="linkToCommunication_communicationId" Type="Edm.Int32"/>
+      </EntityType>
+      <Association Name="CommunicationEntity_linkToComment">
+        <End Role="CommunicationEntity" Type="RelationService.CommunicationEntity" Multiplicity="*"/>
+        <End Role="CommentEntity" Type="RelationService.CommentEntity" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="CommentEntity">
+            <PropertyRef Name="commentId"/>
+          </Principal>
+          <Dependent Role="CommunicationEntity">
+            <PropertyRef Name="linkToComment_commentId"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="CompanyEntity_linkToContact">
+        <End Role="CompanyEntity" Type="RelationService.CompanyEntity" Multiplicity="*"/>
+        <End Role="ContactEntity" Type="RelationService.ContactEntity" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="ContactEntity">
+            <PropertyRef Name="contactId"/>
+          </Principal>
+          <Dependent Role="CompanyEntity">
+            <PropertyRef Name="linkToContact_contactId"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="ContactEntity_linkToCommunication">
+        <End Role="ContactEntity" Type="RelationService.ContactEntity" Multiplicity="*"/>
+        <End Role="CommunicationEntity" Type="RelationService.CommunicationEntity" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="CommunicationEntity">
+            <PropertyRef Name="communicationId"/>
+          </Principal>
+          <Dependent Role="ContactEntity">
+            <PropertyRef Name="linkToCommunication_communicationId"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
